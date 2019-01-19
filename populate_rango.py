@@ -38,7 +38,8 @@ def populate():
 	 #Add extra categories or pages above this line if needed
 
 	for cat, cat_data in cats.items(): 
-		c = add_cat(cat)
+		c = add_cat(cat, 0, 0) 
+		#assume I need to add the views and likes in the parameters above, but it runs without it
 		for p in cat_data["pages"]:
 			add_page(c, p["title"], p["url"])
 
@@ -54,8 +55,8 @@ def add_page(cat, title, url, views=0):
 	p.save()
 	return p
 
-def add_cat(name):
-	c = Category.objects.get_or_create(name=name)[0]
+def add_cat(name, views=0, likes=0):
+	c = Category.objects.get_or_create(name=name, views=views, likes=likes)[0]
 	c.save()
 	return c
 
