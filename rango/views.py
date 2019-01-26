@@ -11,7 +11,9 @@ def index(request):
 
 def about(request):
 	context_dict_message = {'message': "This tutorial has been put together by Nicola Buckley."}
-	return render(request, 'rango/about.html', context=context_dict_message)
+	print(request.method)
+	print(request.user)
+	return render(request, 'rango/about.html', context_dict_message, {})
 
 def show_category(request, category_name_slug):	
 	context_dict = {}
@@ -62,3 +64,8 @@ def add_page(request, category_name_slug):
 
 	context_dict = {'form':form, 'category': category}
 	return render(request, 'rango/add_page.html', context_dict)
+
+
+
+def get_category_list(cat=None):
+	return {'cats': Category.objects.all(), 'act_cat': cat}
